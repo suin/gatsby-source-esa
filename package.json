@@ -1,0 +1,107 @@
+{
+  "name": "@suin/gatsby-source-esa",
+  "version": "1.0.0",
+  "description": "Source plugin for pulling posts into Gatsby from esa.io spaces.",
+  "homepage": "https://github.com/suin/gatsby-source-esa#readme",
+  "bugs": {
+    "url": "https://github.com/suin/gatsby-source-esa/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:suin/gatsby-source-esa.git"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "gatsby-source-plugin",
+    "esa"
+  ],
+  "license": "MIT",
+  "author": "suin <suinyeze@gmail.com>",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": [
+    "**/*.{js,ts,map}",
+    "!*.{test,spec}.*"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "git clean -Xdf -e '!/.idea/**' -e '!/node_modules' -e '!/node_modules/**'",
+    "clean:dry": "git clean -Xdfn -e '!/.idea/**' -e '!/node_modules' -e '!/node_modules/**'",
+    "pack:preview": "PACKAGE=$(npm pack 2> /dev/null) sh -c 'set -eu && tar tf $PACKAGE | sort && rm $PACKAGE'",
+    "reference": "typedoc --includeVersion --exclude 'node_modules/**/*' --exclude '**/*+(.spec|.test).ts' --stripInternal --gitRevision \"`git describe --tags --abbrev=0 || echo master`\" --out reference .",
+    "reset": "git clean -Xdf -e '!/.idea/**'",
+    "reset:dry": "git clean -Xdfn -e '!/.idea/**'",
+    "semantic-release": "semantic-release",
+    "test": "jest"
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "@suin/is-object": "^1.1.0",
+    "axios": "^0.19.2"
+  },
+  "peerDependencies": {
+    "gatsby": "^2.22.4"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/exec": "^5.0.0",
+    "@semantic-release/git": "^9.0.0",
+    "@types/jest": "^25.2.3",
+    "axios-mock-adapter": "^1.18.1",
+    "gatsby": "^2.22.4",
+    "jest": "^26.0.1",
+    "prettier": "^2.0.5",
+    "semantic-release": "^17.0.7",
+    "sort-package-json": "^1.42.2",
+    "ts-jest": "^26.0.0",
+    "typedoc": "^0.17.7",
+    "typescript": "^3.9.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": true
+        }
+      ],
+      "@semantic-release/github",
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "CHANGELOG.md"
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "package.json",
+            "CHANGELOG.md"
+          ]
+        }
+      ],
+      [
+        "@semantic-release/exec",
+        {
+          "successCmd": "yarn reference"
+        }
+      ]
+    ]
+  }
+}
