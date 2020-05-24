@@ -79,6 +79,7 @@ export const newEsaNodeCreator: NewEsaNodeCreator = ({
     await createNode({
       id,
       team: team,
+      html: body_html, // gatsby-transformer-rehype support
       content: body_html,
       internal: {
         type: 'EsaPostBodyHtml',
