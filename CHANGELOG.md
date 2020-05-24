@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/suin/gatsby-source-esa/compare/v1.0.0...v1.1.0) (2020-05-24)
+
+
+### Features
+
+* 🎸 support gatsby-transformer-rehype ([0028489](https://github.com/suin/gatsby-source-esa/commit/002848906c297f7efbb68a51ba1ac9b5101ea981))
+
 # 1.0.0 (2020-05-21)
 
 

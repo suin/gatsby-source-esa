@@ -1,6 +1,6 @@
 {
   "name": "@suin/gatsby-source-esa",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Source plugin for pulling posts into Gatsby from esa.io spaces.",
   "homepage": "https://github.com/suin/gatsby-source-esa#readme",
   "bugs": {
