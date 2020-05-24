@@ -4,6 +4,15 @@ Gatsbyにesa.ioのデータを提供するソースプラグイン。esa API v1�
 
 現在は、投稿の取得のみ対応しています。
 
+## 特徴
+
+* esaのデータソースに対応
+  * 記事
+* 複数のesaチームをデータソースに指定できる
+* 下記のgatsbyプラグインとの統合をサポート
+  * gatsby-transformer-remark
+  * gatsby-transformer-rehype
+
 ## インストール
 
 ```bash
@@ -109,6 +118,80 @@ module.exports = {
     },
     // ...
   ],
+}
+```
+
+### gatsby-transformer-rehypeとの統合
+
+HTMLファイル(mediaTypeがtext/html)のノードを変形するGatsbyプラグインの [gatsby-transformer-rehype](https://www.gatsbyjs.org/packages/gatsby-transformer-rehype/) とは自動的に統合されます。下記のように、当プラグインとgatsby-transformer-rehypeを併用するだけです。
+
+gatsby-transformer-rehypeには記事ノードの`body_html`が渡ります。
+
+```javascript
+// gatsby-config.js
+module.exports = {
+  // ...
+  plugins: [
+    {
+      resolve: `@suin/gatsby-source-esa`,
+      options: {
+        team: `foo`,
+        token: process.env.ESA_TOKEN,
+        posts: { /*...*/ },
+      },
+    },
+    {
+      resolve: `gatsby-transformer-rehype`,
+      options: { /*...*/ },
+    },
+    // ...
+  ],
+}
+```
+
+gatsby-transformer-rehypeで処理されたHTMLを取り出すには、次のようなクエリーを発行します:
+
+```graphql
+query MyQuery {
+  allEsaPost {
+    edges {
+      node {
+        number
+        name
+        childrenEsaPostBodyHtml {
+          childHtmlRehype {
+            html
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+結果の例:
+
+```json5
+{
+  "data": {
+    "allEsaPost": {
+      "edges": [
+        {
+          "node": {
+            "number": 123,
+            "name": "...",
+            "childrenEsaPostBodyHtml": [
+              {
+                "childHtmlRehype": {
+                  "html": "<p>..."
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
 }
 ```
 
