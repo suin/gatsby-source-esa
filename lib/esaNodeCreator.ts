@@ -1,4 +1,4 @@
-import { Actions, NodePluginArgs } from 'gatsby'
+import { Actions, NodeInput, NodePluginArgs } from 'gatsby'
 import { Post } from './esaApi'
 
 type NewEsaNodeCreator = (params: {
@@ -13,7 +13,7 @@ type NewEsaNodeCreator = (params: {
 export interface EsaNodeCreator {
   createPostNodes(posts: ReadonlyArray<Readonly<Post>>): Promise<void>
 
-  createPostNode(post: Pick<Readonly<Post>, 'url'>): Promise<string>
+  createPostNode(post: Readonly<Post>): Promise<string>
 
   createPostBodyMarkdownNode(
     post: Pick<Readonly<Post>, 'body_md' | 'url'>,
@@ -22,6 +22,10 @@ export interface EsaNodeCreator {
   createPostBodyHtmlNode(
     post: Pick<Readonly<Post>, 'body_html' | 'url'>,
   ): Promise<string>
+}
+
+export interface EsaPost extends Post {
+  team: string
 }
 
 export const newEsaNodeCreator: NewEsaNodeCreator = ({
@@ -37,7 +41,7 @@ export const newEsaNodeCreator: NewEsaNodeCreator = ({
     children = [],
   ) => {
     const id = createNodeId(post.url)
-    await createNode({
+    const node: EsaPost & NodeInput = {
       ...post,
       team,
       id,
@@ -47,7 +51,8 @@ export const newEsaNodeCreator: NewEsaNodeCreator = ({
         description: post.url,
       },
       children,
-    })
+    }
+    await createNode(node)
     return id
   }
 
