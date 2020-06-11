@@ -8,10 +8,14 @@ Gatsbyにesa.ioのデータを提供するソースプラグイン。esa API v1�
 
 * esaのデータソースに対応
   * 記事
+* TypeScriptサポート
+  * GraphQLの[スキーマを定義している](./lib/createSchemaCustomization.ts)ので、[gatsby-plugin-graphql-codegen]が生成するTypeScript型定義がしっかりしています。
 * 複数のesaチームをデータソースに指定できる
 * 下記のgatsbyプラグインとの統合をサポート
   * gatsby-transformer-remark
   * gatsby-transformer-rehype
+
+[gatsby-plugin-graphql-codegen]: https://www.gatsbyjs.org/packages/gatsby-plugin-graphql-codegen/
 
 ## インストール
 

@@ -3,6 +3,7 @@ import { Errors } from './lib/errors'
 import { EsaApi, PostsPayload } from './lib/esaApi'
 import { newEsaNodeCreator } from './lib/esaNodeCreator'
 import { isValidPluginOptions, PluginOptions } from './lib/pluginOptions'
+import { createSchemaCustomization } from './lib/createSchemaCustomization'
 
 // noinspection JSUnusedGlobalSymbols
 export const sourceNodes = async (
@@ -46,3 +47,5 @@ export const sourceNodes = async (
     page = next_page
   }
 }
+
+export { createSchemaCustomization }
