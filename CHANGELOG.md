@@ -1,3 +1,11 @@
+# [1.2.0](https://github.com/suin/gatsby-source-esa/compare/v1.1.0...v1.2.0) (2020-06-11)
+
+
+### Features
+
+* 🎸 export type `EsaPost` ([7df4919](https://github.com/suin/gatsby-source-esa/commit/7df4919e5fd4cf3077d1d41cc2050b1f7e8b17a5))
+* 🎸 provide GraphQL schema to Gatsby ([32e5ed9](https://github.com/suin/gatsby-source-esa/commit/32e5ed9391ae517e70ca3cad4dea7d66c788f933))
+
 # [1.1.0](https://github.com/suin/gatsby-source-esa/compare/v1.0.0...v1.1.0) (2020-05-24)
 
 
