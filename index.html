@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>@suin/gatsby-source-esa - v1.1.0</title>
-	<meta name="description" content="Documentation for @suin/gatsby-source-esa - v1.1.0">
+	<title>@suin/gatsby-source-esa - v1.2.0</title>
+	<meta name="description" content="Documentation for @suin/gatsby-source-esa - v1.2.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 </head>
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">@suin/gatsby-source-esa - v1.1.0</a>
+					<a href="index.html" class="title">@suin/gatsby-source-esa - v1.2.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -56,7 +56,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1>@suin/gatsby-source-esa - v1.1.0</h1>
+			<h1>@suin/gatsby-source-esa - v1.2.0</h1>
 		</div>
 	</div>
 </header>
@@ -67,8 +67,27 @@
 				<a href="#suingatsby-source-esa" id="suingatsby-source-esa" style="color: inherit; text-decoration: none;">
 					<h1>@suin/gatsby-source-esa</h1>
 				</a>
-				<p>Gatsbyにesa.ioのデータを提供するソースプラグイン。esa API v1を使用してデータを取り込みます。</p>
+				<p>Gatsby に esa.io のデータを提供するソースプラグイン。esa API v1 を使用してデータを取り込みます。</p>
 				<p>現在は、投稿の取得のみ対応しています。</p>
+				<a href="#特徴" id="特徴" style="color: inherit; text-decoration: none;">
+					<h2>特徴</h2>
+				</a>
+				<ul>
+					<li>esa のデータソースに対応<ul>
+							<li>記事</li>
+						</ul>
+					</li>
+					<li>TypeScript サポート<ul>
+							<li>GraphQL の<a href="./lib/createSchemaCustomization.ts">スキーマを定義している</a>ので、<a href="https://www.gatsbyjs.org/packages/gatsby-plugin-graphql-codegen/">gatsby-plugin-graphql-codegen</a>が生成する TypeScript 型定義がしっかりしています。</li>
+						</ul>
+					</li>
+					<li>複数の esa チームをデータソースに指定できる</li>
+					<li>下記の gatsby プラグインとの統合をサポート<ul>
+							<li>gatsby-transformer-remark</li>
+							<li>gatsby-transformer-rehype</li>
+						</ul>
+					</li>
+				</ul>
 				<a href="#インストール" id="インストール" style="color: inherit; text-decoration: none;">
 					<h2>インストール</h2>
 				</a>
@@ -81,7 +100,7 @@ npm install @suin/gatsby-source-esa</code></pre>
 				<a href="#設定の仕方" id="設定の仕方" style="color: inherit; text-decoration: none;">
 					<h3>設定の仕方</h3>
 				</a>
-				<p>gatsby-config.jsのプラグイン設定に@suin/gatsby-source-esaを追加してください:</p>
+				<p>gatsby-config.js のプラグイン設定に@suin/gatsby-source-esa を追加してください:</p>
 				<pre><code class="language-javascript"><span class="hljs-comment">// gatsby-config.js</span>
 <span class="hljs-built_in">module</span>.exports = {
   <span class="hljs-comment">// ...</span>
@@ -106,15 +125,15 @@ npm install @suin/gatsby-source-esa</code></pre>
 				<ul>
 					<li><code>team</code>: https://{チーム名}.esa.io の {チーム名} の部分を指定する。</li>
 					<li><code>token</code>: ユーザの管理画面(https://[team].esa.io/user/tokens)で発行したアクセストークンを指定する。</li>
-					<li><code>posts</code>: エンドポイント <a href="https://docs.esa.io/posts/102#URI%E3%82%AF%E3%82%A8%E3%83%AA%E6%96%87%E5%AD%97%E5%88%97-1">GET /v1/team/:team_name/postsのURIクエリ文字列</a> に指定できるパラメータが利用可能。<ul>
-							<li><code>posts.q</code>: 記事を絞り込むための条件。ここに検索オプション(wip:falseやin:Publicなど)を駆使して、公開すべき記事をうまく絞り込むことをおすすめをします。<a href="https://docs.esa.io/posts/104">help/記事の検索方法 - docs.esa.io</a>参照。</li>
+					<li><code>posts</code>: エンドポイント <a href="https://docs.esa.io/posts/102#URI%E3%82%AF%E3%82%A8%E3%83%AA%E6%96%87%E5%AD%97%E5%88%97-1">GET /v1/team/:team_name/posts の URI クエリ文字列</a> に指定できるパラメータが利用可能。<ul>
+							<li><code>posts.q</code>: 記事を絞り込むための条件。ここに検索オプション(wip:false や in:Public など)を駆使して、公開すべき記事をうまく絞り込むことをおすすめをします。<a href="https://docs.esa.io/posts/104">help/記事の検索方法 - docs.esa.io</a>参照。</li>
 						</ul>
 					</li>
 				</ul>
 				<a href="#クエリー" id="クエリー" style="color: inherit; text-decoration: none;">
 					<h3>クエリー</h3>
 				</a>
-				<p>GraphQLでのクエリーは以下のように行なえます:</p>
+				<p>GraphQL でのクエリーは以下のように行なえます:</p>
 				<pre><code class="language-graphql">query MyQuery {
   allEsaPost {
     edges {
@@ -131,11 +150,11 @@ npm install @suin/gatsby-source-esa</code></pre>
     }
   }
 }</code></pre>
-				<p><strong>提供されるGraphQLインターフェイス</strong></p>
+				<p><strong>提供される GraphQL インターフェイス</strong></p>
 				<ul>
 					<li>allEsaPost: すべての投稿</li>
-					<li>allEsaPostBodyHtml: すべての投稿の本文のHTML部分</li>
-					<li>allEsaPostBodyMarkdown: すべての投稿の本文のMarkdown部分</li>
+					<li>allEsaPostBodyHtml: すべての投稿の本文の HTML 部分</li>
+					<li>allEsaPostBodyMarkdown: すべての投稿の本文の Markdown 部分</li>
 					<li>esaPost</li>
 					<li>esaPostBodyHtml</li>
 					<li>esaPostBodyMarkdown</li>
@@ -144,15 +163,15 @@ npm install @suin/gatsby-source-esa</code></pre>
 					<h2>注意事項</h2>
 				</a>
 				<ul>
-					<li>esa APIには「ユーザ毎に15分間に75リクエストまで」という利用制限があります。このプラグインはできるだけリクエスト数が少なくなるように設計してありますが、この利用制限に達した場合の挙動は未定義です。</li>
+					<li>esa API には「ユーザ毎に 15 分間に 75 リクエストまで」という利用制限があります。このプラグインはできるだけリクエスト数が少なくなるように設計してありますが、この利用制限に達した場合の挙動は未定義です。</li>
 				</ul>
 				<a href="#tips" id="tips" style="color: inherit; text-decoration: none;">
 					<h2>Tips</h2>
 				</a>
-				<a href="#gatsby-transformer-remarkとの統合" id="gatsby-transformer-remarkとの統合" style="color: inherit; text-decoration: none;">
-					<h3>gatsby-transformer-remarkとの統合</h3>
+				<a href="#gatsby-transformer-remark-との統合" id="gatsby-transformer-remark-との統合" style="color: inherit; text-decoration: none;">
+					<h3>gatsby-transformer-remark との統合</h3>
 				</a>
-				<p>MarkdownファイルをパースするGatsbyプラグインの <a href="https://www.gatsbyjs.org/packages/gatsby-transformer-remark/">gatsby-transformer-remark</a> とは自動的に統合されます。下記のように、当プラグインとgatsby-transformer-remarkを併用するだけです:</p>
+				<p>Markdown ファイルをパースする Gatsby プラグインの <a href="https://www.gatsbyjs.org/packages/gatsby-transformer-remark/">gatsby-transformer-remark</a> とは自動的に統合されます。下記のように、当プラグインと gatsby-transformer-remark を併用するだけです:</p>
 				<pre><code class="language-javascript"><span class="hljs-comment">// gatsby-config.js</span>
 <span class="hljs-built_in">module</span>.exports = {
   <span class="hljs-comment">// ...</span>
@@ -162,20 +181,90 @@ npm install @suin/gatsby-source-esa</code></pre>
       <span class="hljs-attr">options</span>: {
         <span class="hljs-attr">team</span>: <span class="hljs-string">`foo`</span>,
         <span class="hljs-attr">token</span>: process.env.ESA_TOKEN,
-        <span class="hljs-attr">posts</span>: { <span class="hljs-comment">/*...*/</span> },
+        <span class="hljs-attr">posts</span>: {
+          <span class="hljs-comment">/*...*/</span>
+        },
       },
     },
     {
       <span class="hljs-attr">resolve</span>: <span class="hljs-string">`gatsby-transformer-remark`</span>,
-      <span class="hljs-attr">options</span>: { <span class="hljs-comment">/*...*/</span> },
+      <span class="hljs-attr">options</span>: {
+        <span class="hljs-comment">/*...*/</span>
+      },
     },
     <span class="hljs-comment">// ...</span>
   ],
 }</code></pre>
+				<a href="#gatsby-transformer-rehype-との統合" id="gatsby-transformer-rehype-との統合" style="color: inherit; text-decoration: none;">
+					<h3>gatsby-transformer-rehype との統合</h3>
+				</a>
+				<p>HTML ファイル(mediaType が text/html)のノードを変形する Gatsby プラグインの <a href="https://www.gatsbyjs.org/packages/gatsby-transformer-rehype/">gatsby-transformer-rehype</a> とは自動的に統合されます。下記のように、当プラグインと gatsby-transformer-rehype を併用するだけです。</p>
+				<p>gatsby-transformer-rehype には記事ノードの<code>body_html</code>が渡ります。</p>
+				<pre><code class="language-javascript"><span class="hljs-comment">// gatsby-config.js</span>
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-attr">plugins</span>: [
+    {
+      <span class="hljs-attr">resolve</span>: <span class="hljs-string">`@suin/gatsby-source-esa`</span>,
+      <span class="hljs-attr">options</span>: {
+        <span class="hljs-attr">team</span>: <span class="hljs-string">`foo`</span>,
+        <span class="hljs-attr">token</span>: process.env.ESA_TOKEN,
+        <span class="hljs-attr">posts</span>: {
+          <span class="hljs-comment">/*...*/</span>
+        },
+      },
+    },
+    {
+      <span class="hljs-attr">resolve</span>: <span class="hljs-string">`gatsby-transformer-rehype`</span>,
+      <span class="hljs-attr">options</span>: {
+        <span class="hljs-comment">/*...*/</span>
+      },
+    },
+    <span class="hljs-comment">// ...</span>
+  ],
+}</code></pre>
+				<p>gatsby-transformer-rehype で処理された HTML を取り出すには、次のようなクエリーを発行します:</p>
+				<pre><code class="language-graphql">query MyQuery {
+  allEsaPost {
+    edges {
+      node {
+        number
+        name
+        childrenEsaPostBodyHtml {
+          childHtmlRehype {
+            html
+          }
+        }
+      }
+    }
+  }
+}</code></pre>
+				<p>結果の例:</p>
+				<pre><code class="language-json">{
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"allEsaPost"</span>: {
+      <span class="hljs-attr">"edges"</span>: [
+        {
+          <span class="hljs-attr">"node"</span>: {
+            <span class="hljs-attr">"number"</span>: <span class="hljs-number">123</span>,
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"..."</span>,
+            <span class="hljs-attr">"childrenEsaPostBodyHtml"</span>: [
+              {
+                <span class="hljs-attr">"childHtmlRehype"</span>: {
+                  <span class="hljs-attr">"html"</span>: <span class="hljs-string">"&lt;p&gt;..."</span>
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}</code></pre>
 				<a href="#複数のチームをデータソースにする場合" id="複数のチームをデータソースにする場合" style="color: inherit; text-decoration: none;">
 					<h3>複数のチームをデータソースにする場合</h3>
 				</a>
-				<p>このプラグインは複数のesaチームをデータソースにしても、それぞれのチームの投稿がGatsby上で衝突しないように設計されています。</p>
+				<p>このプラグインは複数の esa チームをデータソースにしても、それぞれのチームの投稿が Gatsby 上で衝突しないように設計されています。</p>
 				<p>複数のチームからデータを取り込む場合は、下記のように<code>@suin/gatsby-source-esa</code>を複数記述してください。</p>
 				<pre><code class="language-javascript"><span class="hljs-comment">// gatsby-config.js</span>
 <span class="hljs-built_in">module</span>.exports = {
@@ -198,7 +287,7 @@ npm install @suin/gatsby-source-esa</code></pre>
     <span class="hljs-comment">// ...</span>
   ],
 }</code></pre>
-				<p>GraphQLでチーム名を参照するには、<code>team</code>をクエリに含めてください:</p>
+				<p>GraphQL でチーム名を参照するには、<code>team</code>をクエリに含めてください:</p>
 				<pre><code class="language-graphql">query MyQuery {
   allEsaPost {
     edges {
@@ -221,6 +310,12 @@ npm install @suin/gatsby-source-esa</code></pre>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/_gatsby_node_.html">&quot;gatsby-<wbr>node&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_index_.html">&quot;index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_lib_createschemacustomization_.html">&quot;lib/create<wbr>Schema<wbr>Customization&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/_lib_errors_.html">&quot;lib/errors&quot;</a>
